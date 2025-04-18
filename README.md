@@ -1,6 +1,7 @@
 # 运行说明
 
 ## 文件说明
+```bash
 fedcet-rfedcet/
 ├── fedcet_main.py        # 主脚本，包含实验运行逻辑
 ├── fedcet.py             # FedCET 算法实现
@@ -13,6 +14,7 @@ fedcet-rfedcet/
 ├── data/                 # 数据集存储目录
 ├── results/              # 实验结果保存目录
 └── requirements.txt      # 依赖列表
+```
 
 项目包含以下四个核心文件：
 
