@@ -7,7 +7,7 @@
 1. **fedcet_main.py**：主程序文件，负责解析命令行参数、加载数据集、分配数据、创建模型并运行 FedCET 或 RFedCET 实验。
 2. **fedcet.py**：实现 FedCET 算法的核心逻辑，包括客户端分组、稀疏模型初始化、参数探索和模型聚合。
 3. **rfedcet.py**：实现 R-FedCET 算法，扩展了 FedCET，增加了超网络参数补偿和 UCB 稀疏度调整策略。
-4. **dst.py**:实现Random算法与FedDST算法的核心逻辑。
+4. **dst.py**: 实现Random mask随机掩码算法与 FedDST算法 的核心逻辑。
 
 ## 安装依赖
 
@@ -62,12 +62,9 @@ python dst.py --dataset mnist --sparsity 0.8 --readjustment-ratio 0.0 --rounds 2
 --change_ratio_init 参数转移集群数量
 --param_ratio_init 参数转移数量
 #FedDST参数
---loss_rate 丢包率
---embed_dim 嵌入向量维度
---change_ratio_init 参数转移集群数量
---param_ratio_init 参数转移数量
-```
 --rounds-between-readjustments 掩码更新间隔轮次
 --readjustment-ratio 0.0 掩码更新调整比例
+```
+
 
 
