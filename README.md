@@ -7,6 +7,7 @@
 1. **fedcet_main.py**：主程序文件，负责解析命令行参数、加载数据集、分配数据、创建模型并运行 FedCET 或 RFedCET 实验。
 2. **fedcet.py**：实现 FedCET 算法的核心逻辑，包括客户端分组、稀疏模型初始化、参数探索和模型聚合。
 3. **rfedcet.py**：实现 R-FedCET 算法，扩展了 FedCET，增加了超网络参数补偿和 UCB 稀疏度调整策略。
+4. **dst.py**:实现Random算法与FedDST算法的核心逻辑。
 
 ## 安装依赖
 
@@ -16,7 +17,7 @@
 
 ## 运行
 
-#### 示例 1：运行 FedCET 算法（MNIST 数据集，CNN模型）
+#### 示例 1：运行 FedCET 算法（MNIST 数据集，CNN模型， IID）
 
 ```bash
 python fedcet_main.py --algorithm fedcet --dataset mnist --model cnn --num_rounds 200 --sparsity 0.9 --num_clients 100 --local_epochs 5
@@ -28,6 +29,17 @@ python fedcet_main.py --algorithm fedcet --dataset mnist --model cnn --num_round
 python fedcet_main.py --algorithm rfedcet --dataset cifar10 --model resent18 --num_rounds 800 --sparsity 0.9 --num_clients 100 --local_epochs 5 --non_iid --dirichlet_alpha 0.5
 ```
 
+#### 示例 3：运行 FedDST 算法（CIFAR-10 数据集，CNN 模型，Non-IID）
+
+```bash
+python dst.py --dataset cifar10 --sparsity 0.9 --readjustment-ratio 0.01 --rounds-between-readjustments 15
+```
+
+#### 示例 4：运行 Random算法（MNIST 数据集，CNN 模型，Non-IID）
+
+```bash
+python dst.py --dataset mnist --sparsity 0.8 --readjustment-ratio 0.0 --rounds 200
+```
 #### 参数说明
 
 ```bash
@@ -49,7 +61,13 @@ python fedcet_main.py --algorithm rfedcet --dataset cifar10 --model resent18 --n
 --embed_dim 嵌入向量维度
 --change_ratio_init 参数转移集群数量
 --param_ratio_init 参数转移数量
+#FedDST参数
+--loss_rate 丢包率
+--embed_dim 嵌入向量维度
+--change_ratio_init 参数转移集群数量
+--param_ratio_init 参数转移数量
 ```
-
+--rounds-between-readjustments 掩码更新间隔轮次
+--readjustment-ratio 0.0 掩码更新调整比例
 
 
