@@ -82,24 +82,6 @@ class FedCET:
     def __init__(self, model, sparsity, init_explore_fraction, end_round, update_frequency,
                  num_groups, num_clients, clients_per_round, local_epochs, device='cuda',
                  coverage_threshold=0.9, params_per_flop=100, client_groups=None):
-        """
-        Initialize the FedCET framework
-
-        Args:
-            model: Base neural network model
-            sparsity: Target sparsity level (0.0-1.0)
-            init_explore_fraction: Initial fraction of parameters to explore (alpha)
-            end_round: Round at which exploration ends (T_end)
-            update_frequency: Frequency of structure updates (ΔT)
-            num_groups: Number of groups for parallel exploration (Z)
-            num_clients: Total number of clients (N)
-            clients_per_round: Number of clients sampled per round (K)
-            local_epochs: Number of local training epochs (E)
-            device: Device to run computations
-            coverage_threshold: Target parameter coverage rate for clustering
-            params_per_flop: Parameters covered per FLOPS
-            client_groups: Predefined client-to-group mapping (if provided)
-        """
         self.model = model
         self.sparsity = sparsity
         self.init_explore_fraction = init_explore_fraction
@@ -133,7 +115,6 @@ class FedCET:
         self.accuracy_history = []
 
     def _assign_clients_to_groups(self):
-        """Randomly partitions clients into groups (fallback if no clustering)."""
         client_groups = {}
         clients_per_group = self.num_clients // self.num_groups
         remaining = self.num_clients % self.num_groups
@@ -147,8 +128,7 @@ class FedCET:
         return client_groups
 
     def initialize_sparse_model(self, data_batch):
-        """Initialize global sparse structure by randomly generating masks for each layer."""
-        print("Initializing random sparse structure...")
+        print("Initializing sparse structure...")
         current_explore_fraction = self._get_explore_fraction(0)
         initial_keep_ratio = 1 - self.sparsity - (1 - self.sparsity) * current_explore_fraction
         self.global_mask = {}
@@ -162,13 +142,11 @@ class FedCET:
         print(f"Initialized with {initial_keep_ratio:.2%} of parameters")
 
     def _get_explore_fraction(self, round_num):
-        """Get the current fraction of parameters to explore using cosine annealing."""
         if round_num >= self.end_round:
             return 0.0
         return self.init_explore_fraction * 0.5 * (1 + math.cos(round_num * math.pi / self.end_round))
 
     def _explore_group_structures(self, round_num):
-        """Parallel exploration of sparse structures for each group."""
         explore_fraction = self._get_explore_fraction(round_num)
         if explore_fraction == 0:
             for g in range(self.num_groups):
@@ -198,7 +176,6 @@ class FedCET:
             self.group_masks[g] = group_mask
 
     def _select_parameters(self, client_models, client_data_sizes, round_num):
-        """Select the most potential parameters from the parallel over-parameterized model."""
         if round_num >= self.end_round:
             return
         sensitivity_scores = {}
@@ -243,7 +220,6 @@ class FedCET:
         print(f"Updated global mask with {keep_ratio:.2%} of parameters at round {round_num}")
 
     def train(self, train_data, test_data, client_optimizer_fn, num_rounds):
-        """Main training loop for FedCET."""
         sample_batch = next(iter(train_data[0]))
         self.initialize_sparse_model(sample_batch)
         self.accuracy_history = []
@@ -354,7 +330,6 @@ class FedCET:
                 param.data = aggregated_dict[name]
 
     def _evaluate(self, test_data):
-        """Evaluate the global model on test data."""
         self.global_model.eval()
         correct = 0
         total = 0
