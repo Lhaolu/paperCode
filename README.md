@@ -63,6 +63,13 @@ python dst.py --dataset cifar10 --sparsity 0.9 --readjustment-ratio 0.01 --round
 ```bash
 python dst.py --dataset mnist --sparsity 0.8 --readjustment-ratio 0.0 --rounds 200
 ```
+
+#### 示例 5：运行 Dense 算法（CIFAR-10 数据集，ResNet18 模型，Non-IID）
+
+```bash
+python fedcet_main.py --algorithm rfedcet --dataset cifar10 --model resent18 --num_rounds 800 --sparsity 0.0  --non_iid --dirichlet_alpha 0.5
+```
+
 #### 参数说明
 
 ```bash
