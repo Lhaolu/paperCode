@@ -106,5 +106,16 @@ results/my_experiment_rfedcet_20250418_123456/
 + best_accuracy：训练过程中的最高准确率。
 + final_accuracy：最后一轮的准确率。
 + accuracy_plot.png：可视化准确率随通信轮次的变化，横轴为轮次，纵轴为准确率。
-
-
+### 可视化结果
+准确率曲线：accuracy_plot.png 显示准确率随轮次的变化，帮助分析模型的收敛性和稳定性。 示例：
+比较多个实验： 使用 `fedcet_main.py` 中的 `compare_experiments` 函数比较多个实验的准确率曲线：
+```bash
+from fedcet_main import compare_experiments
+exp_dirs = [
+    "results/fedcet_mnist_20250418_123456",
+    "results/rfedcet_mnist_20250418_123457"
+]
+labels = ["FedCET", "RFedCET"]
+compare_experiments(exp_dirs, labels)
+```
+输出：comparison_plot.png，显示多个实验的准确率曲线对比。
