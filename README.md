@@ -89,8 +89,8 @@ python dst.py --dataset mnist --sparsity 0.8 --readjustment-ratio 0.0 --rounds 2
 --readjustment-ratio 0.0 掩码更新调整比例
 ```
 ## 结果展示
-实验结果会自动保存在 `results/`目录下的子目录中，每个实验目录以`{exp_name}_{algorithm}_{timestamp}`命名。以下是结果的结构和展示方式：
-### 结果目录结构
+实验结果会自动保存在 `results/`目录下的子目录中，每个实验目录以`{exp_name}_{algorithm}_{timestamp}`命名。
+### 实验日志结构
 每个实验目录包含以下文件：
 ```bash
 results/my_experiment_rfedcet_20250418_123456/
@@ -107,8 +107,9 @@ results/my_experiment_rfedcet_20250418_123456/
 + final_accuracy：最后一轮的准确率。
 + accuracy_plot.png：可视化准确率随通信轮次的变化，横轴为轮次，纵轴为准确率。
 ### 可视化结果
-准确率曲线：accuracy_plot.png 显示准确率随轮次的变化，帮助分析模型的收敛性和稳定性。
+准确率曲线：accuracy_plot.png 显示准确率随轮次的变化。
 #### 对比实验示例：：对比FedCET与R-FedCET算法
+对比曲线：comparison_plot.png，显示多个实验的准确率曲线对比。
 ```bash
 from fedcet_main import compare_experiments
 exp_dirs = [
@@ -118,4 +119,3 @@ exp_dirs = [
 labels = ["FedCET", "RFedCET"]
 compare_experiments(exp_dirs, labels)
 ```
-输出：comparison_plot.png，显示多个实验的准确率曲线对比。
