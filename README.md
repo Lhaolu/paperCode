@@ -31,7 +31,7 @@ paperCode/
       NumPy
       scikit-learn
       matplotlib
-      tqdm（用于训练进度显示
+      tqdm
 ```
 
 ```bash
@@ -90,5 +90,21 @@ python dst.py --dataset mnist --sparsity 0.8 --readjustment-ratio 0.0 --rounds 2
 ```
 ## 结果展示
 实验结果会自动保存在 `results/`目录下的子目录中，每个实验目录以`{exp_name}_{algorithm}_{timestamp}`命名。以下是结果的结构和展示方式：
+### 结果目录结构
+每个实验目录包含以下文件：
+```bash
+results/my_experiment_rfedcet_20250418_123456/
+├── config.json           # 实验配置参数
+├── results.json          # 训练结果（包括准确率历史、最佳准确率等）
+├── accuracy_plot.png     # 准确率随轮次变化的折线图
+├── best_model.pth        # 最佳模型权重（如果设置了 --save_model）
+├── final_model.pth       # 最终模型权重（如果设置了 --save_model）
+```
++ config.json：记录所有实验参数，便于复现实验。
++ results.json：包含以下字段：
++ accuracy_history：每轮的测试准确率列表。
++ best_accuracy：训练过程中的最高准确率。
++ final_accuracy：最后一轮的准确率。
++ accuracy_plot.png：可视化准确率随通信轮次的变化，横轴为轮次，纵轴为准确率。
 
 
