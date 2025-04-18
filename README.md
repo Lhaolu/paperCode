@@ -2,7 +2,7 @@
 
 ## 文件说明
 ```bash
-fedcet-rfedcet/
+paperCode/
 ├── fedcet_main.py        # 主脚本，包含实验运行逻辑
 ├── fedcet.py             # FedCET 算法实现
 ├── rfedcet.py            # RFedCET 算法实现
