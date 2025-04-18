@@ -88,6 +88,7 @@ python dst.py --dataset mnist --sparsity 0.8 --readjustment-ratio 0.0 --rounds 2
 --rounds-between-readjustments 掩码更新间隔轮次
 --readjustment-ratio 0.0 掩码更新调整比例
 ```
-
+## 结果展示
+实验结果会自动保存在 `results/`目录下的子目录中，每个实验目录以`{exp_name}_{algorithm}_{timestamp}`命名。以下是结果的结构和展示方式：
 
 
