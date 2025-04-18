@@ -19,7 +19,7 @@ from rfedcet import RFedCET
 
 
 def parse_arguments():
-    """Parse command line arguments for the FedCET framework."""
+    
     parser = argparse.ArgumentParser(description='Federated Learning Framework ')
     parser.add_argument('--exp_name', type=str, default='experiment', help='Experiment name for saving results')
     parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility')
@@ -59,7 +59,7 @@ def parse_arguments():
     return args
 
 def setup_experiment(args):
-    """Set up the experiment with the specified parameters."""
+   
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
     random.seed(args.seed)
@@ -71,7 +71,7 @@ def setup_experiment(args):
     return exp_dir
 
 def load_dataset(args):
-    """Load and prepare datasets based on the specified arguments."""
+    
     if args.dataset == 'mnist':
         transform = transforms.Compose([
             transforms.ToTensor(),
@@ -116,7 +116,7 @@ def load_dataset(args):
     return train_dataset, test_dataset, num_classes, input_channels
 
 def distribute_data(train_dataset, args):
-    """Distribute data among clients according to the specified distribution."""
+    
     num_clients = args.num_clients
     client_datasets = []
     if args.non_iid:
@@ -162,7 +162,7 @@ def distribute_data(train_dataset, args):
     return client_datasets
 
 def create_model(args, num_classes, input_channels):
-    """Create a model based on the specified architecture."""
+    
     if args.model == 'cnn':
         model = CNNModel(num_classes=num_classes)
     elif args.model == 'lenet':
@@ -182,7 +182,7 @@ def client_optimizer_factory(args):
     return client_optimizer_fn
 
 def run_experiment(args):
-    """Run the FedCET experiment with the specified parameters."""
+    
     exp_dir = setup_experiment(args)
     print(f"Experiment directory: {exp_dir}")
     train_dataset, test_dataset, num_classes, input_channels = load_dataset(args)
@@ -266,7 +266,7 @@ def run_experiment(args):
     return best_model, best_acc, accuracy_history, exp_dir
 
 def calculate_model_sparsity(model, masks):
-    """Calculate the actual sparsity of the pruned model."""
+
     total_params = 0
     zero_params = 0
     for name, param in model.named_parameters():
@@ -277,7 +277,7 @@ def calculate_model_sparsity(model, masks):
     return zero_params / total_params if total_params > 0 else 0
 
 def compare_experiments(exp_dirs, labels):
-    """Compare results from multiple experiments."""
+
     plt.figure(figsize=(12, 8))
     for exp_dir, label in zip(exp_dirs, labels):
         with open(os.path.join(exp_dir, 'results.json'), 'r') as f:
