@@ -1,6 +1,18 @@
 # 运行说明
 
 ## 文件说明
+fedcet-rfedcet/
+├── fedcet_main.py        # 主脚本，包含实验运行逻辑
+├── fedcet.py             # FedCET 算法实现
+├── rfedcet.py            # RFedCET 算法实现
+├── dst.py                # Random 算法与FedDST 算法实现
+├── models.py             # 模型结构实现
+├── datasets.py           # 数据集
+├── prune.py              # 剪枝方法
+├── README.md             # 项目说明文档
+├── data/                 # 数据集存储目录
+├── results/              # 实验结果保存目录
+└── requirements.txt      # 依赖列表
 
 项目包含以下四个核心文件：
 
@@ -10,6 +22,15 @@
 4. **dst.py**: 实现Random mask随机掩码算法与 FedDST算法 的核心逻辑。
 
 ## 安装依赖
+```bash
+      Python 3.8+
+      PyTorch 1.9.0+
+      torchvision
+      NumPy
+      scikit-learn
+      matplotlib
+      tqdm（用于训练进度显示
+```
 
 ```bash
       pip install -r requirements.txt
